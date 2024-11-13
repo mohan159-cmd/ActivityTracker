@@ -16,13 +16,13 @@ const App = () => {
       <div className="container-fluid pt-3">
         <div className="row">
           <div className="col-1">
-            1 of 2
+            
           </div>
           <div className="col-10">
             <LandingPage />
           </div>
           <div className="col-1">
-            2 of 2
+            
           </div>
         </div>
       </div>

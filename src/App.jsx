@@ -2,31 +2,39 @@ import React from 'react'
 import LandingPage from './components/home/LandingPage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { routeConfig } from './RouteConfig';
+import NavBar from './components/common/NavBar';
+import NoFoundPage from './components/common/NoPageFound';
 
 const App = () => {
   return (
-    <>
-      <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand px-4">BO Tracker</a>
-        <form class="d-flex px-4">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </nav>
+    <Router>
+      <NavBar />
       <div className="container-fluid pt-3">
         <div className="row">
           <div className="col-1">
             
           </div>
           <div className="col-10">
-            <LandingPage />
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route>
+                    {routeConfig.map(route=><Route path={route.path} element={route.component} />)}
+                  </Route>
+                  <Route path="*" element={<NoFoundPage />} />
+                </Routes>
           </div>
           <div className="col-1">
             
           </div>
         </div>
       </div>
-    </>
+    </Router>
   )
 }
 

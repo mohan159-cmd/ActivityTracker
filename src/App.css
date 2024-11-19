@@ -91,3 +91,22 @@
   .cursor-pointer{
     cursor: pointer;
   }
+
+  .background-color-gray{
+    background-color: #f9f9f9;
+  }
+
+  .color-gray{
+    color: #333333;
+  }
+
+.link-container {
+    display: block;
+    text-decoration: none;
+    color: inherit; 
+}
+
+.link-container * {
+    margin: 0;
+    background-color: #f0f0f0; 
+}

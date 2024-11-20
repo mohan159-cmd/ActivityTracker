@@ -110,3 +110,14 @@
     margin: 0;
     background-color: #f0f0f0; 
 }
+
+.custom-tab-button {
+  color: black;
+  border-bottom: 2px solid transparent;
+  border-radius: 0px !important; 
+}
+
+.custom-tab-button.selected {
+  border-bottom: 1px solid #007bff; 
+}
+

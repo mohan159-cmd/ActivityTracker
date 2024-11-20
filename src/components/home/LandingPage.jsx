@@ -30,7 +30,7 @@ const LandingPage = () => {
             <div key={index} className="p-2 col-sm-8 col-md-4">
               <ACTCard 
                   title={item.name}
-                  redirectLink={`/categories/${item.id}`} />
+                  redirectLink={`/categories/${item.name}`} />
             </div>
           );
         })

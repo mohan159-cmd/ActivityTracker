@@ -1,5 +1,5 @@
 import React from 'react'
-import LandingPage from './components/home/LandingPage'
+import Home from './components/home/Home'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -22,7 +22,7 @@ const App = () => {
           </div>
           <div className="col-10">
                 <Routes>
-                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/" element={<Home />} />
                   <Route>
                     {routeConfig.map(route=><Route path={route.path} element={route.component} />)}
                   </Route>

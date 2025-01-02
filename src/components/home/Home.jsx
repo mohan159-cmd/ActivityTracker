@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import ACTCard from '../common/ACTCard';
 import { categoriesJsonData } from '../services/datatemplate';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const LandingPage = () => {
+const Home = () => {
 
   //#region variables
   const navigate = useNavigate();
@@ -15,10 +16,21 @@ const LandingPage = () => {
   }
 
   //#region api get calls
+  const getCategoriesByUserId = async () => {
+    try {
+      const response = await axios.get(
+        "https://activitytrackerapiv1-e5avgzd5bbh7dyat.canadacentral-01.azurewebsites.net/v1/GetCategoriesbyUserId/userId=1"
+      );
+      setSections(response.data)
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+  
 
   //#region useeffect
   useEffect(() => {
-    setSections(categoriesJsonData)
+    getCategoriesByUserId();
   },[])
 
   //#region return
@@ -29,7 +41,8 @@ const LandingPage = () => {
           return (
             <div key={index} className="p-2 col-sm-8 col-md-4">
               <ACTCard 
-                  title={item.name}
+                  title={item?.Name}
+                  description={item?.Description}
                   redirectLink={`/categories/${item.name}`} />
             </div>
           );
@@ -39,4 +52,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default Home

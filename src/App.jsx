@@ -10,30 +10,22 @@ import {
 import { routeConfig } from './RouteConfig';
 import NavBar from './components/common/NavBar';
 import NoFoundPage from './components/common/NoPageFound';
+import SitePage from './components/registartion/components/SitePage';
+import Login from './components/registartion/components/Login';
+import Signup from './components/registartion/components/Signup';
 
 const App = () => {
   return (
     <Router>
-      <NavBar />
-      <div className="container-fluid pt-3">
-        <div className="row">
-          <div className="col-1">
-            
-          </div>
-          <div className="col-10">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route>
-                    {routeConfig.map(route=><Route path={route.path} element={route.component} />)}
-                  </Route>
-                  <Route path="*" element={<NoFoundPage />} />
-                </Routes>
-          </div>
-          <div className="col-1">
-            
-          </div>
-        </div>
-      </div>
+        <Routes>
+          <Route path="/" element={<SitePage />} />
+          <Route path="/login-page" element={<Login />} />
+          <Route path="/signup-page" element={<Signup />} />
+          <Route>
+            {routeConfig.map(route=><Route path={route.path} element={route.component} />)}
+          </Route>
+          <Route path="*" element={<NoFoundPage />} />
+        </Routes>
     </Router>
   )
 }

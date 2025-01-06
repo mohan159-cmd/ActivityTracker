@@ -3,6 +3,7 @@ import ACTCard from '../common/ACTCard';
 import { categoriesJsonData } from '../services/datatemplate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getCategoriesByUserId } from '../services/services';
 
 const Home = () => {
 
@@ -16,21 +17,20 @@ const Home = () => {
   }
 
   //#region api get calls
-  const getCategoriesByUserId = async () => {
-    try {
-      const response = await axios.get(
-        "https://activitytrackerapiv1-e5avgzd5bbh7dyat.canadacentral-01.azurewebsites.net/v1/GetCategoriesbyUserId/userId=1"
-      );
-      setSections(response.data)
-    } catch (error) {
-      console.error("Error fetching categories:", error);
+  const getCategoriesByUser = async () => {
+    const data = await getCategoriesByUserId(1);
+    if (data.responseCode === 200) {
+      setSections(data?.responseData)
+    }
+    else {
+      setSections([])
     }
   };
   
 
   //#region useeffect
   useEffect(() => {
-    getCategoriesByUserId();
+    getCategoriesByUser();
   },[])
 
   //#region return

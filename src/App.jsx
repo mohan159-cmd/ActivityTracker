@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/" element={<SitePage />} />
           <Route path="/login-page" element={<Login />} />
           <Route path="/signup-page" element={<Signup />} />
-          <Route>
+          <Route element={<NavBar />}>
             {routeConfig.map(route=><Route path={route.path} element={route.component} />)}
           </Route>
           <Route path="*" element={<NoFoundPage />} />

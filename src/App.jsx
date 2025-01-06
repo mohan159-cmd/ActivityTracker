@@ -14,7 +14,7 @@ import SitePage from './components/registartion/components/SitePage';
 import Login from './components/registartion/components/Login';
 import Signup from './components/registartion/components/Signup';
 
-const App = () => {
+const App = () => { 
   return (
     <Router>
         <Routes>

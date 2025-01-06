@@ -1,6 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+
+  //#region variables
+  const navigate = useNavigate();
+
+  //#region click events
+  const onLoginClick = () => {
+    navigate("/login-page");
+  }
+
+  //#region return
   return (
     <div className="login-container">
         <div className="tab-content">
@@ -27,7 +38,7 @@ const Signup = () => {
                         </button>
                     </div>
                     <div className="text-center">
-                        <p>Already have an account? <a href="/login-page">Sign In</a></p>
+                        <p>Already have an account? <a href="#" onClick={onLoginClick}>Sign In</a></p>
                         <p> <a href="/">Back to home page</a></p>
                     </div>
                 </form>

@@ -11,6 +11,10 @@ const Login = () => {
     navigate('/signup-page')
   }
 
+  const onLoginClick = () => {
+    navigate('/home-page')
+  }
+
   return (
     <div className="login-container">
         <div className="tab-content">
@@ -37,10 +41,17 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button type="submit" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block mb-4">SIGN IN</button>
+                        <button 
+                          type="submit" 
+                          data-mdb-button-init 
+                          data-mdb-ripple-init 
+                          className="btn btn-primary btn-block mb-4"
+                          onClick={onLoginClick}>
+                            SIGN IN
+                        </button>
                     </div>
                     <div className="text-center">
-                        <p>Not a member? <a href="/signup-page">Register</a></p>
+                        <p>Not a member? <a href="#" onClick={onSignUpClick}>Register</a></p>
                         <p> <a href="/">Back to home page</a></p>
                     </div>
                 </form>

@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCategoriesByUserId } from '../services/services';
 
-const Home = () => {
+const HomePage = () => {
 
   //#region variables
   const navigate = useNavigate();
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState(null);
 
   //#region click events
   const onCategorieClick = () => {
@@ -37,7 +37,9 @@ const Home = () => {
   return (
     <div className='container d-flex flex-wrap'>
       {
-        sections?.map((item, index) => {
+        sections 
+        ? sections?.length > 0
+          ? sections?.map((item, index) => {
           return (
             <div key={index} className="p-2 col-sm-8 col-md-4">
               <ACTCard 
@@ -46,10 +48,12 @@ const Home = () => {
                   redirectLink={`/categories/${item.name}`} />
             </div>
           );
-        })
+            })
+          : "No data found"
+        : "Loading..."
       }
     </div>
   )
 }
 
-export default Home
+export default HomePage

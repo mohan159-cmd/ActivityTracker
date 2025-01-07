@@ -9,3 +9,12 @@ export const getCategoriesByUserId = async (userId) => {
             return getAPIResponse(error);
         });
 }
+
+export const checkLoginCredentials = async (body) => {
+    return await axiosApiCall.post(`/v1/checkLoginCredentials`, body)
+        .then(res => {
+            return getAPIResponse(res);
+        }).catch(error => {
+            return getAPIResponse(error);
+        });
+}

@@ -7,7 +7,9 @@ import { valdiationMessages } from '../../../utlis/validationMessages';
 import { checkLoginCredentials } from '../../services/services';
 import { toast } from 'react-toastify';
 import LoadingButton from '../../common/input-fields/LoadingButton';
-import { useScrollTrigger } from '@mui/material';
+import { getUserDetailsByEmailId } from '../services/services';
+import { useUserContext } from '../../../store/ContextAPIs';
+import secureLocalStorage from 'react-secure-storage';
 
 const Login = () => {
 
@@ -19,6 +21,7 @@ const Login = () => {
 
   //#region variables
   const navigate = useNavigate();
+  const { userContext, setUserContext } = useUserContext();
   const [btnLoading,setBtnLoading] = useState(false);
 
   //#region change events
@@ -50,7 +53,20 @@ const Login = () => {
     }
     const data = await checkLoginCredentials(requestedBody);
     if(data.responseCode === 200){
-        navigate('/home-page');
+        const userData = await getUserDetailsByEmailId(loginDetails.values.email);
+        if(userData.responseCode === 200){
+          secureLocalStorage.setItem('userId', userData.responseData[0].UserID);
+          secureLocalStorage.setItem('emailId', userData.responseData[0].EmailId);
+          setUserContext(userData.responseData[0]);
+          navigate('/home-page');
+        }
+        else{
+          setBtnLoading(false);
+          toast.error("error fetching details", {
+            position: "bottom-right",
+            theme: "colored",
+          }); 
+        }
     }
     else{
       setBtnLoading(false);

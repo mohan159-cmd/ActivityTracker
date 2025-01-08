@@ -1,6 +1,6 @@
 import ActivityOverview from "./components/categories/activity-overview/ActivityOverview";
 import CategoryDashboard from "./components/categories/CategoryDashboard";
-import HomePage from "./components/home/HomePage";
+import HomePage from "./components/home/components/HomePage";
 
 export const routeConfig = [
     {

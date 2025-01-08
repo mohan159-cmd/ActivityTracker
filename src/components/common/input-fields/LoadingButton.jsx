@@ -8,12 +8,13 @@ const LoadingButton = (props) => {
     name,
     onClick,
     loading,
-    disabled
+    disabled,
+    btnColor
   } = props; 
 
   //#region return
   return (
-    <button class="btn btn-primary" type="button" onClick={onClick} disabled={disabled || loading}>
+    <button className={`btn ${btnColor ? btnColor : 'btn-primary'}`} type="button" onClick={onClick} disabled={disabled || loading}>
         {
             loading && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         }
@@ -26,14 +27,17 @@ LoadingButton.propTypes = {
   name: proptypes.string,
   onClick: proptypes.func,
   loading: proptypes.bool,
-  disabled: proptypes.bool
+  disabled: proptypes.bool,
+  className: proptypes.string,
+  btnColor: proptypes.string
 }
 
 LoadingButton.defaultProps = {
   name: "SIGN IN",
   onClick: () => {},
   loading: false,
-  disabled: false
+  disabled: false,
+  btnColor: "btn-primary"
 }
 
 

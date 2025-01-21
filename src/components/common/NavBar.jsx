@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import secureLocalStorage from 'react-secure-storage';
 
 const NavBar = () => {
 
@@ -12,18 +13,34 @@ const NavBar = () => {
       navigate("/");
   }
 
+  const onLogoutClick = () => {
+      navigate("/");
+      secureLocalStorage.clear();
+  }
+
   return (
     <>
       <nav className="navbar navbar-light bg-light justify-content-between">
           <a className="navbar-brand px-4 cursor-pointer" onClick={onHomeClick}>Activity Tracker</a>
-          <div class="btn-group">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <div className="btn-group">
+            <button
+              className="btn dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <AccountCircleIcon />
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Profile</a></li>
-              <li><a href="#">Logout</a></li>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end mt-2 me-1" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a className="dropdown-item" href="#">
+                  Profile
+                </a>
+              </li>
+              <li className="dropdown-item cursor-pointer" onClick={onLogoutClick}>
+                  Logout
+              </li>
             </ul>
           </div>
       </nav>

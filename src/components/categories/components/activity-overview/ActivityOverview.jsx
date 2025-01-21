@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import TabSwitch from '../../common/TabSwitch';
+import TabSwitch from '../../../common/TabSwitch';
 
 const ActivityOverview = () => {
+  
   //#region variables
   const { categoryId, activityName } = useParams();
   const [selectedTab, setSelectedTab] = useState(1);

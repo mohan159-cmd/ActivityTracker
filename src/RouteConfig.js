@@ -1,5 +1,4 @@
-import ActivityOverview from "./components/categories/activity-overview/ActivityOverview";
-import CategoryDashboard from "./components/categories/CategoryDashboard";
+import CatlogDashboard from "./components/categories/components/CatlogDashboard";
 import HomePage from "./components/home/components/HomePage";
 
 export const routeConfig = [
@@ -8,11 +7,7 @@ export const routeConfig = [
         component: <HomePage />
     },
     {
-        path: "/categories/:categoryName",
-        component: <CategoryDashboard />
-    },
-    {
-        path: "/categories/:categoryName/:activityName",
-        component: <ActivityOverview />
+        path: "/category-catlogs",
+        component: <CatlogDashboard />
     },
 ]

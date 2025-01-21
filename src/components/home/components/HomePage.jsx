@@ -7,6 +7,7 @@ import { getCategoriesByUserId } from '../../services/services';
 import { useUserContext } from '../../../store/ContextAPIs';
 import LoadingButton from '../../common/input-fields/LoadingButton';
 import AddCategoryPopup from '../popups/AddCategoryPopup';
+import secureLocalStorage from 'react-secure-storage';
 
 const HomePage = () => {
 
@@ -23,6 +24,12 @@ const HomePage = () => {
 
   const onCloseAddcategoryPopup = () => {
     setOpenPopup(false);
+  }
+
+  const onCategoryClick = (id) => {
+    debugger
+    secureLocalStorage.setItem('categoryId', id);
+    navigate('/category-catlogs');
   }
 
   //#region api get calls
@@ -60,7 +67,8 @@ const HomePage = () => {
             <div key={index} className="p-2 col-sm-8 col-md-4">
               <ACTCard 
                   title={item?.Name}
-                  description={item?.Description} />
+                  description={item?.Description}
+                  onClick={() => onCategoryClick(item?.CategoryID)} />
             </div>
           );
             })

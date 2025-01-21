@@ -13,6 +13,7 @@ import SitePage from './components/registartion/components/SitePage';
 import Login from './components/registartion/components/Login';
 import Signup from './components/registartion/components/Signup';
 import { ToastContainer } from 'react-toastify';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const App = () => { 
   return (

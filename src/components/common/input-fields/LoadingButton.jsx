@@ -9,16 +9,28 @@ const LoadingButton = (props) => {
     onClick,
     loading,
     disabled,
-    btnColor
+    btnColor,
+    iconName
   } = props; 
 
   //#region return
   return (
-    <button className={`btn ${btnColor ? btnColor : 'btn-primary'}`} type="button" onClick={onClick} disabled={disabled || loading}>
-        {
-            loading && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        }
-        {name}
+    <button 
+        className={`btn ${btnColor ? btnColor : 'btn-primary'} d-flex align-items-center justify-content-center px-3 py-2`} 
+        type="button" 
+        onClick={onClick} 
+        disabled={disabled || loading}>
+        {loading && (
+            <span 
+                className="spinner-border spinner-border-sm me-2" 
+                role="status" 
+                aria-hidden="true">
+            </span>
+        )}
+        <div className="d-flex align-items-center gap-2">
+            {iconName && <i className={`${iconName} fs-5 mb-1`}></i>}
+            <div>{name}</div>
+        </div>
     </button>
   )
 }
@@ -29,7 +41,8 @@ LoadingButton.propTypes = {
   loading: proptypes.bool,
   disabled: proptypes.bool,
   className: proptypes.string,
-  btnColor: proptypes.string
+  btnColor: proptypes.string,
+  iconName: proptypes.string
 }
 
 LoadingButton.defaultProps = {
@@ -37,7 +50,8 @@ LoadingButton.defaultProps = {
   onClick: () => {},
   loading: false,
   disabled: false,
-  btnColor: "btn-primary"
+  btnColor: "btn-primary",
+  iconName: ""
 }
 
 

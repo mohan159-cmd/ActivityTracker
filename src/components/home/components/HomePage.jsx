@@ -26,9 +26,9 @@ const HomePage = () => {
     setOpenPopup(false);
   }
 
-  const onCategoryClick = (id) => {
-    debugger
+  const onCategoryClick = (id,name) => {
     secureLocalStorage.setItem('categoryId', id);
+    secureLocalStorage.setItem('categoryName', name);
     navigate('/category-catlogs');
   }
 
@@ -56,7 +56,8 @@ const HomePage = () => {
         <div></div>
         <LoadingButton 
            name="ADD NEW CATEGORY"
-           onClick={onAddCategorieClick} />
+           onClick={onAddCategorieClick}
+           iconName="bi bi-plus" />
       </div>
       <div className='d-flex flex-wrap'>
       {
@@ -68,7 +69,7 @@ const HomePage = () => {
               <ACTCard 
                   title={item?.Name}
                   description={item?.Description}
-                  onClick={() => onCategoryClick(item?.CategoryID)} />
+                  onClick={() => onCategoryClick(item?.CategoryID, item?.Name)} />
             </div>
           );
             })

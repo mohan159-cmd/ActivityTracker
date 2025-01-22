@@ -19,6 +19,7 @@ const LoadingButton = (props) => {
         className={`btn ${btnColor ? btnColor : 'btn-primary'} d-flex align-items-center justify-content-center px-3 py-2`} 
         type="button" 
         onClick={onClick} 
+        style={{ height: iconName ? '40px' : '' }}
         disabled={disabled || loading}>
         {loading && (
             <span 
@@ -29,7 +30,7 @@ const LoadingButton = (props) => {
         )}
         <div className="d-flex align-items-center gap-2">
             {iconName && <i className={`${iconName} fs-5 mb-1`}></i>}
-            <div>{name}</div>
+            <div>{name.toUpperCase()}</div>
         </div>
     </button>
   )

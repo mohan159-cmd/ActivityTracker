@@ -1,49 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import ACTCard from '../../common/ACTCard';
-import { getCatlogsbyCatgeoryId } from '../services/services';
 import secureLocalStorage from 'react-secure-storage';
 import LoadingBar from '../../common/components/LoadingBar';
-import AddCatlogPopup from '../popups/AddCatlogPopup';
 import LoadingButton from '../../common/input-fields/LoadingButton';
+import { getCatlogsbyCatgeoryId } from '../../categories/services/services';
+import ACTCard from '../../common/ACTCard';
+import AddCatlogPopup from '../../categories/popups/AddCatlogPopup';
+import AddActivityPopup from '../popups/AddActivityPopup';
+import { getActivitiesbyCatlogId } from '../services/services';
 
-const CatlogDashboard = () => {
+const ActivityDashboard = () => {
 
   //#region variables
-  const navigate = useNavigate();
-  const [catlogs, setCatlogs] = useState();
+  const [activites, setActivites] = useState();
   const [isOpenAddPopup, setIsOpenAddPopup] = useState(false);
 
   //#region click events
-  const onAddCatlogClick = () => {
+  const onAddActivityClick = () => {
     setIsOpenAddPopup(true);
   }
 
-  const onCloseAddCatlogPopup = () => {
+  const onCloseActivityPopup = () => {
     setIsOpenAddPopup(false);
-  }
-
-  const onCatlogClick = (id,name) => {
-    secureLocalStorage.setItem('catlogId', id);
-    secureLocalStorage.setItem('catlogName', name);
-    debugger
-    navigate('/catlog-activities')
   }
   
   //#region api get calls
-  const getCatlogs = async() => {
-    const categoryId = secureLocalStorage.getItem("categoryId");
-    const data = await getCatlogsbyCatgeoryId(categoryId);
+  const getActivities = async() => {
+    const catlogId = secureLocalStorage.getItem("catlogId");
+    const data = await getActivitiesbyCatlogId(catlogId);
     if(data.responseCode === 200){
-      setCatlogs(data.responseData);
+      setActivites(data.responseData);
     }else{
-      setCatlogs([]);
+      setActivites([]);
     }
   }
 
   //#region useeffect
   useEffect(() => {
-    getCatlogs();
+    getActivities();
   }, [])
 
   //#region return
@@ -53,46 +46,46 @@ const CatlogDashboard = () => {
         <div className='child-margin-10'>
           <div className='child-row-margin-5 align-item-center'>
             <i class="bi bi-arrow-left fs-5 cursor-pointer" onClick={() => window.history.back()}></i>
-            <div>{secureLocalStorage.getItem("categoryName")} Catlogs</div>
+            <div>{secureLocalStorage.getItem("catlogName")} Activities</div>
           </div>
         </div>
         <LoadingButton 
-            name="Add New Catlog"
-            onClick={onAddCatlogClick}
+            name="Add Activity"
+            onClick={onAddActivityClick}
             iconName="bi bi-plus" />
       </div>
       {
-        catlogs 
-          ? catlogs?.length > 0
+        activites 
+          ? activites?.length > 0
               ? <div className='container d-flex flex-wrap'>
                     {
-                      catlogs
+                      activites
                         ?.map((item, index) => {
                         return (
                           <div key={index} className="p-2 col-sm-8 col-md-4">
                             <ACTCard 
                                 title={item.Name}
                                 description={item.Description}
-                                onClick={()=>{onCatlogClick(item.CatlogID,item.Name)}} />
+                                onClick={()=>{}} />
                           </div>
                         );
                       })
                     }
                   </div>
-              : <div className='margin-top-10'>No Catlogs Found</div>
+              : <div className='margin-top-10'>No activites Found</div>
           : <div>
               <LoadingBar />
             </div>
       }
       {
         isOpenAddPopup &&
-        <AddCatlogPopup 
+        <AddActivityPopup 
           isOpen={isOpenAddPopup}
-          onClose={onCloseAddCatlogPopup}
-          getCatlogs={getCatlogs} />
+          onClose={onCloseActivityPopup}
+          getActivities={getActivities} />
       }
     </div>
   )
 }
 
-export default CatlogDashboard
+export default ActivityDashboard

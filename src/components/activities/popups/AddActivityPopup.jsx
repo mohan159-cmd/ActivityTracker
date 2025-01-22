@@ -4,23 +4,23 @@ import secureLocalStorage from "react-secure-storage";
 import * as yup from "yup";
 import { valdiationMessages } from "../../../utlis/validationMessages";
 import TextField from "../../common/input-fields/TextField";
-import { createCategory, createCatlog } from "../services/services";
 import LoadingButton from "../../common/input-fields/LoadingButton";
 import { toast } from "react-toastify";
+import { createActivity } from "../services/services";
 
-const AddCatlogPopup = (props) => {
+const AddActivityPopup = (props) => {
 
   //#region props
   const {
      onClose,
-     getCatlogs
+     getActivities
   } = props;
 
   //#region initialData
   const initialData = {
-    'catlogName': '',
-    'catlogDescription': '',
-    'categoryId': secureLocalStorage.getItem('categoryId')
+    'activityName': '',
+    'activityDescription': '',
+    'catlogId': secureLocalStorage.getItem('catlogId')
   }
 
   //#region variables
@@ -28,7 +28,7 @@ const AddCatlogPopup = (props) => {
 
   //#region change events
   const handleChange = (name,value) => {
-    catlogDetails.setFieldValue(name,value)
+    activityDetails.setFieldValue(name,value)
   }
 
   //#region click events
@@ -40,21 +40,24 @@ const AddCatlogPopup = (props) => {
   //#region api post calls
   const createNewCatlog = async() =>{
     const requestedBody = {
-        "categoryId": catlogDetails.values.categoryId,
-        "name": catlogDetails.values.catlogName,
-        "description": catlogDetails.values.catlogDescription
+        "catlogId": activityDetails.values.catlogId,
+        "name": activityDetails.values.activityName,
+        "description": activityDetails.values.activityDescription,
+        "createdDate": "2018-04-20",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
     };
-    const data = await createCatlog(requestedBody);
+    const data = await createActivity(requestedBody);
     if(data.responseCode === 200){
-      getCatlogs();
-      toast.success("Catlog Created Successfully", {
+      getActivities();
+      toast.success("Activity Created Successfully", {
           position: "bottom-right"
       })
       onClose();
     }
     else{
       setBtnLoading(false);
-      toast.error("unable to create catlog", {
+      toast.error("unable to create activity", {
         position: "bottom-right",
         theme: "colored",
       })
@@ -63,15 +66,15 @@ const AddCatlogPopup = (props) => {
 
   //#region formik validations
   const validationSchema = yup.object({
-    catlogName: yup
+    activityName: yup
       .string()
       .required(valdiationMessages.REQUIRED),
-    catlogDescription: yup
+    activityDescription: yup
       .string()
       .required(valdiationMessages.REQUIRED),
   })
 
-  const catlogDetails = useFormik({
+  const activityDetails = useFormik({
     initialValues: initialData,
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -85,29 +88,29 @@ const AddCatlogPopup = (props) => {
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">ADD CATLOG</h5>
+            <h5 className="modal-title">ADD Activity</h5>
             <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
           </div>
           <div className="modal-body margin-top-minus-20">
             <div>
                 <TextField 
-                    name="catlogName"
-                    placeHolder="Catlog Name"
-                    value={catlogDetails.values.catlogName}
+                    name="activityName"
+                    placeHolder="Activity Name"
+                    value={activityDetails.values.activityName}
                     onChange={(name,value) => handleChange(name,value)}
-                    onBlur={catlogDetails.handleBlur}
-                    error={catlogDetails.touched.catlogName && catlogDetails.errors.catlogName}
-                    errorMessage={catlogDetails.touched.catlogName && catlogDetails.errors.catlogName}/>
+                    onBlur={activityDetails.handleBlur}
+                    error={activityDetails.touched.activityName && activityDetails.errors.activityName}
+                    errorMessage={activityDetails.touched.activityName && activityDetails.errors.activityName}/>
             </div>
             <div>
                 <TextField 
-                    name="catlogDescription"
-                    placeHolder="Catlog Description"
-                    value={catlogDetails.values.catlogDescription}
+                    name="activityDescription"
+                    placeHolder="Activity Description"
+                    value={activityDetails.values.activityDescription}
                     onChange={(name,value) => handleChange(name,value)}
-                    onBlur={catlogDetails.handleBlur}
-                    error={catlogDetails.touched.catlogDescription && catlogDetails.errors.catlogDescription}
-                    errorMessage={catlogDetails.touched.catlogDescription && catlogDetails.errors.catlogDescription}/>
+                    onBlur={activityDetails.handleBlur}
+                    error={activityDetails.touched.activityDescription && activityDetails.errors.activityDescription}
+                    errorMessage={activityDetails.touched.activityDescription && activityDetails.errors.activityDescription}/>
             </div>
           </div>
           <div className="modal-footer margin-top-5">
@@ -119,7 +122,7 @@ const AddCatlogPopup = (props) => {
             <LoadingButton
                name='Save'
                loading={btnLoaidng}
-               onClick={catlogDetails.handleSubmit}/>
+               onClick={activityDetails.handleSubmit}/>
           </div>
         </div>
       </div>
@@ -127,4 +130,4 @@ const AddCatlogPopup = (props) => {
   );
 };
 
-export default AddCatlogPopup;
+export default AddActivityPopup;

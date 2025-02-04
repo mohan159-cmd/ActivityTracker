@@ -41,18 +41,20 @@ const ActivityDashboard = () => {
 
   //#region return
   return (
-    <div className='padding-20'>
-      <div className='d-flex space-between margin-top-10'>
-        <div className='child-margin-10'>
+    <div className=''>
+       <div className='s-banner space-between align-item-center'>
           <div className='child-row-margin-5 align-item-center'>
-            <i class="bi bi-arrow-left fs-5 cursor-pointer" onClick={() => window.history.back()}></i>
-            <div>{secureLocalStorage.getItem("catlogName")} Activities</div>
+            <i class="bi bi-arrow-left fs-5 cursor-pointer color-black"
+                onClick={() => window.history.back()}
+                style={{ color: 'white' }}></i>
+            <h1>{secureLocalStorage.getItem("catlogName")}</h1>
           </div>
-        </div>
-        <LoadingButton 
-            name="Add Activity"
-            onClick={onAddActivityClick}
-            iconName="bi bi-plus" />
+          <div>
+            <LoadingButton 
+              name="Add Activity"
+              onClick={onAddActivityClick}
+              iconName="bi bi-plus" />
+          </div>
       </div>
       {
         activites 

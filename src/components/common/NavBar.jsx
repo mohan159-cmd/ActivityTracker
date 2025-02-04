@@ -10,7 +10,11 @@ const NavBar = () => {
   
   //#region click events
   const onHomeClick = () => {
+     if(secureLocalStorage.getItem('userId')){
+        navigate('/home-page');
+     }else{
       navigate("/");
+     }
   }
 
   const onLogoutClick = () => {
@@ -20,8 +24,10 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-light bg-light justify-content-between">
-          <a className="navbar-brand px-4 cursor-pointer" onClick={onHomeClick}>Activity Tracker</a>
+      <nav className="navbar navbar-light justify-content-between nav-bar-height">
+          <a className="navbar-brand px-4 cursor-pointer" onClick={onHomeClick}>
+            <img src="/img/lg2.png" className='app-logo-container' alt='Activity Tracker'/>
+          </a>
           <div className="btn-group">
             <button
               className="btn dropdown-toggle"
@@ -44,9 +50,10 @@ const NavBar = () => {
             </ul>
           </div>
       </nav>
-      <div>
-        <Outlet />
-      </div>
+      <div className='background-color-alicent-blue' style={{ height: `calc(100vh - 76px)` }}>
+  <Outlet />
+</div>
+
     </>
   )
 }

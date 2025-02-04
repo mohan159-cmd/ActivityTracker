@@ -7,6 +7,7 @@ import TextField from "../../common/input-fields/TextField";
 import LoadingButton from "../../common/input-fields/LoadingButton";
 import { toast } from "react-toastify";
 import { createActivity } from "../services/services";
+import DateTimePicker from "../../common/input-fields/DateTimePicker";
 
 const AddActivityPopup = (props) => {
 
@@ -20,7 +21,9 @@ const AddActivityPopup = (props) => {
   const initialData = {
     'activityName': '',
     'activityDescription': '',
-    'catlogId': secureLocalStorage.getItem('catlogId')
+    'catlogId': secureLocalStorage.getItem('catlogId'),
+    'startDate': '',
+    'endDate': ''
   }
 
   //#region variables
@@ -43,9 +46,9 @@ const AddActivityPopup = (props) => {
         "catlogId": activityDetails.values.catlogId,
         "name": activityDetails.values.activityName,
         "description": activityDetails.values.activityDescription,
-        "createdDate": "2018-04-20",
-        "startDate": "2024-01-01",
-        "endDate": "2024-12-31"
+        "createdDate": new Date(),
+        "startDate": activityDetails.values.startDate,
+        "endDate": activityDetails.values.endDate
     };
     const data = await createActivity(requestedBody);
     if(data.responseCode === 200){
@@ -111,6 +114,20 @@ const AddActivityPopup = (props) => {
                     onBlur={activityDetails.handleBlur}
                     error={activityDetails.touched.activityDescription && activityDetails.errors.activityDescription}
                     errorMessage={activityDetails.touched.activityDescription && activityDetails.errors.activityDescription}/>
+            </div>
+            <div>
+              <DateTimePicker 
+                  name="startDate"
+                  placeHolder="Start Date"
+                  value={activityDetails.values.startDate}
+                  onChange={(name,value) => handleChange(name,value)} />
+            </div>
+            <div>
+              <DateTimePicker 
+                  name="endDate"
+                  placeHolder="End Date"
+                  value={activityDetails.values.endDate}
+                  onChange={(name,value) => handleChange(name,value)} />
             </div>
           </div>
           <div className="modal-footer margin-top-5">

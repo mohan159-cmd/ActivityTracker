@@ -7,6 +7,9 @@ import ACTCard from '../../common/ACTCard';
 import AddCatlogPopup from '../../categories/popups/AddCatlogPopup';
 import AddActivityPopup from '../popups/AddActivityPopup';
 import { getActivitiesbyCatlogId } from '../services/services';
+import { formatDate } from '../../common/functions/Formatter';
+import { Pie } from 'recharts';
+import PieChartComponent from '../../common/components/PieChartComponent';
 
 const ActivityDashboard = () => {
 
@@ -59,7 +62,8 @@ const ActivityDashboard = () => {
       {
         activites 
           ? activites?.length > 0
-              ? <div className='container d-flex flex-wrap'>
+              ? <div>
+                  <div className='container d-flex flex-wrap'>
                     {
                       activites
                         ?.map((item, index) => {
@@ -67,13 +71,23 @@ const ActivityDashboard = () => {
                           <div key={index} className="p-2 col-sm-8 col-md-4">
                             <ACTCard 
                                 title={item.Name}
-                                description={item.Description}
+                                description={
+                                  <div className='child-margin-5'>
+                                    <div>Description: {item.Description}</div>
+                                    <div>Start Time: {formatDate(item.StartDate)}</div>
+                                    <div>EndTime: {formatDate(item.EndDate)}</div>
+                                  </div>
+                                }
                                 onClick={()=>{}} />
                           </div>
                         );
                       })
                     }
                   </div>
+                  <div className='height-300 width-300'>
+                    <PieChartComponent />
+                  </div>
+                </div>
               : <div className='margin-top-10'>No activites Found</div>
           : <div>
               <LoadingBar />

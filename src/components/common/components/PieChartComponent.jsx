@@ -1,29 +1,44 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { PieChart, Pie, Cell } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
+const PieChartComponent = (props) => {
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  //#region props
+  const { data } = props;
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  //#region variables
+  const jsonData = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ];
+  
+  //#region functions
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  
+    return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
+  const generateColors = (numColors) => {
+    const colors = [];
+    for (let i = 0; i < numColors; i++) {
+      colors.push(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
+    }
+    return colors;
+  };
 
-const PieChartComponent = () => {
+  const dynamicColors = generateColors(data?.length);
+
+  //#region return
   return (
     <PieChart width={400} height={400}>
       <Pie
@@ -34,10 +49,9 @@ const PieChartComponent = () => {
         label={renderCustomizedLabel}
         outerRadius={80}
         fill="#8884d8"
-        dataKey="value"
-      >
+        dataKey="value">
         {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          <Cell key={`cell-${index}`} fill={dynamicColors[index % dynamicColors.length]} />
         ))}
       </Pie>
     </PieChart>

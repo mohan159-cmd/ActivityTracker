@@ -16,6 +16,12 @@ const ActivityDashboard = () => {
   //#region variables
   const [activites, setActivites] = useState();
   const [isOpenAddPopup, setIsOpenAddPopup] = useState(false);
+  const [graphData,setGraphData] = useState(
+    [
+      { name: 'ACT 1', value: 400 },
+      { name: 'ACT 2', value: 300 },
+    ]
+  );
 
   //#region click events
   const onAddActivityClick = () => {
@@ -85,7 +91,7 @@ const ActivityDashboard = () => {
                     }
                   </div>
                   <div className='height-300 width-300'>
-                    <PieChartComponent />
+                    <PieChartComponent data={graphData} />
                   </div>
                 </div>
               : <div className='margin-top-10'>No activites Found</div>

@@ -16,6 +16,7 @@ const ActivityDashboard = () => {
   //#region variables
   const [activites, setActivites] = useState();
   const [isOpenAddPopup, setIsOpenAddPopup] = useState(false);
+  
   const [graphData,setGraphData] = useState(
     [
       { name: 'ACT 1', value: 400 },

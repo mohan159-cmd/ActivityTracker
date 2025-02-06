@@ -69,7 +69,7 @@ const ActivityDashboard = () => {
       {
         activites 
           ? activites?.length > 0
-              ? <div>
+              ? <div className=''>
                   <div className='container d-flex flex-wrap'>
                     {
                       activites

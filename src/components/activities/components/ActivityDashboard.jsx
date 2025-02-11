@@ -76,16 +76,18 @@ const ActivityDashboard = () => {
                         ?.map((item, index) => {
                         return (
                           <div key={index} className="p-2 col-sm-8 col-md-4">
-                            <ACTCard 
-                                title={item.Name}
-                                description={
-                                  <div className='child-margin-5'>
+                            <div className="card link-container cursor-pointer">
+                              <div className="card-body child-margin-5">
+                                <h5 className="card-title link-container cursor-pointer">{item.Name}</h5>
+                                <p className="card-text">
+                                <div className='child-margin-5'>
                                     <div>Description: {item.Description}</div>
                                     <div>Start Time: {formatDate(item.StartDate)}</div>
                                     <div>EndTime: {formatDate(item.EndDate)}</div>
                                   </div>
-                                }
-                                onClick={()=>{}} />
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         );
                       })

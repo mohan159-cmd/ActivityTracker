@@ -8,6 +8,7 @@ import LoadingButton from "../../common/input-fields/LoadingButton";
 import { toast } from "react-toastify";
 import { createActivity } from "../services/services";
 import DateTimePicker from "../../common/input-fields/DateTimePicker";
+import FileUploadField from "../../common/input-fields/FileUploadField";
 
 const AddActivityPopup = (props) => {
 
@@ -23,13 +24,25 @@ const AddActivityPopup = (props) => {
     'activityDescription': '',
     'catlogId': secureLocalStorage.getItem('catlogId'),
     'startDate': '',
-    'endDate': ''
+    'endDate': '',
+    'file': ''
   }
 
   //#region variables
   const [btnLoaidng,setBtnLoading] = useState(false);
 
   //#region change events
+  const handleFileUpload = (name,file) => {
+    if(file){
+      const formData = new FormData();
+      formData.append(name, file, file.name);
+      handleChange(name, file);
+    }
+    else{
+      handleChange(name,null);
+    }
+  }
+
   const handleChange = (name,value) => {
     activityDetails.setFieldValue(name,value)
   }
@@ -37,11 +50,11 @@ const AddActivityPopup = (props) => {
   //#region click events
   const onSaveClick = () => {
     setBtnLoading(true);
-    createNewCatlog();
+    createNewActivity();
   }
 
   //#region api post calls
-  const createNewCatlog = async() =>{
+  const createNewActivity = async() =>{
     const requestedBody = {
         "catlogId": activityDetails.values.catlogId,
         "name": activityDetails.values.activityName,
@@ -50,7 +63,12 @@ const AddActivityPopup = (props) => {
         "startDate": activityDetails.values.startDate,
         "endDate": activityDetails.values.endDate
     };
-    const data = await createActivity(requestedBody);
+
+    const formData = new FormData();
+    formData.append('file', activityDetails.values.file);
+    formData.append('activityDetails', JSON.stringify(requestedBody));
+
+    const data = await createActivity(formData);
     if(data.responseCode === 200){
       getActivities();
       toast.success("Activity Created Successfully", {
@@ -95,6 +113,18 @@ const AddActivityPopup = (props) => {
             <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
           </div>
           <div className="modal-body margin-top-minus-20">
+            <div className="space-between margin-top-15">
+              <div></div>
+              <div>
+                <FileUploadField 
+                  label="Upload File"
+                  name="file"
+                  value={activityDetails.values.file}
+                  onChange={(name,file) => handleFileUpload(name,file)}
+                  error={activityDetails.touched.file && activityDetails.errors.file}
+                  errorMessage={activityDetails.touched.file && activityDetails.errors.file} />
+              </div>
+            </div>
             <div>
                 <TextField 
                     name="activityName"

@@ -26,7 +26,6 @@ const CatlogDashboard = () => {
   const onCatlogClick = (id,name) => {
     secureLocalStorage.setItem('catlogId', id);
     secureLocalStorage.setItem('catlogName', name);
-    debugger
     navigate('/catlog-activities')
   }
   
